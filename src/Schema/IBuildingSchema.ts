@@ -10,7 +10,7 @@ export interface IBuildingSchema
 	description: string;
 	className: string;
 	categories: string[];
-	buildMenuPriority: number;
+	buildMenuPriority: number | null;
 	metadata: IBuildingMetadataSchema;
 	size: ISizeSchema;
 

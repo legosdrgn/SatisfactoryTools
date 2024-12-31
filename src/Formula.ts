@@ -52,7 +52,7 @@ export class Formula
 
 	public static calculatePowerGeneratorPowerCapacity(generator: IGeneratorSchema, overclock: number)
 	{
-		return (generator.powerProduction * Math.pow(overclock / 100, 1 / generator.powerProductionExponent));
+		return (generator.powerProduction * Math.pow(overclock / 100, 1 / (generator.powerProductionExponent || 1)));
 	}
 
 }

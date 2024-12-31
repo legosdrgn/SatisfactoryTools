@@ -54,6 +54,7 @@ export default function parseItemDescriptors(items: {
 		if (item.mPersistentBigIcon !== 'None') {
 			result.push({
 				slug: Strings.webalize(item.mDisplayName),
+				icon: item.ClassName.toLowerCase().replaceAll('_', '-'),
 				className: item.ClassName,
 				name: item.mDisplayName,
 				sinkPoints: parseInt(item.mResourceSinkPoints),

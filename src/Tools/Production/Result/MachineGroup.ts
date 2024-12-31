@@ -3,6 +3,7 @@ import {Numbers} from '@src/Utils/Numbers';
 import {RecipeData} from '@src/Tools/Production/Result/RecipeData';
 import {IMachineGroupPower} from '@src/Tools/Production/Result/IMachineGroupPower';
 import {IMachineGroupItem} from '@src/Tools/Production/Result/IMachineGroupItem';
+import {IRecipeVariablePowerSchema} from '@src/Schema/IRecipeSchema';
 
 export class MachineGroup
 {
@@ -93,8 +94,9 @@ export class MachineGroup
 		power += machine.amount * (this.recipeData.machine.metadata.powerConsumption * Math.pow(machine.clockSpeed / 100, this.recipeData.machine.metadata.powerConsumptionExponent));
 
 		if (this.recipeData.recipe.isVariablePower) {
-			max = machine.amount * this.recipeData.recipe.maxPower * Math.pow(machine.clockSpeed / 100, this.recipeData.machine.metadata.powerConsumptionExponent);
-			const min = machine.amount * this.recipeData.recipe.minPower * Math.pow(machine.clockSpeed / 100, this.recipeData.machine.metadata.powerConsumptionExponent);
+			const vRecipe = this.recipeData.recipe as IRecipeVariablePowerSchema;
+			max = machine.amount * vRecipe.maxPower * Math.pow(machine.clockSpeed / 100, this.recipeData.machine.metadata.powerConsumptionExponent);
+			const min = machine.amount * vRecipe.minPower * Math.pow(machine.clockSpeed / 100, this.recipeData.machine.metadata.powerConsumptionExponent);
 			power = (max + min) / 2;
 			isVariable = true;
 		}

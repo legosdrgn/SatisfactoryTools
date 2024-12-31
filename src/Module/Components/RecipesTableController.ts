@@ -1,6 +1,6 @@
 import {IItemSchema} from '@src/Schema/IItemSchema';
 import data from '@src/Data/Data';
-import {IAnyRecipeSchema, IRecipeSchema} from '@src/Schema/IRecipeSchema';
+import {IAnyRecipeSchema, IRecipeSchema, IRecipeVariablePowerSchema} from '@src/Schema/IRecipeSchema';
 import {IBuildingSchema, IManufacturerSchema} from '@src/Schema/IBuildingSchema';
 import {ComponentOptionsService} from '@src/Module/Services/ComponentOptionsService';
 import {Formula} from '@src/Formula';
@@ -42,7 +42,8 @@ export class RecipesTableController
 	public getRecipeMinPower(recipe: IAnyRecipeSchema): number
 	{
 		if (recipe.isVariablePower) {
-			return Numbers.round(recipe.minPower * Math.pow(this.options.overclock / 100, 1 / (this.getMachine(recipe)?.metadata.powerConsumptionExponent || 1.3)));
+			const vRecipe = recipe as IRecipeVariablePowerSchema;
+			return Numbers.round(vRecipe.minPower * Math.pow(this.options.overclock / 100, 1 / (this.getMachine(recipe)?.metadata.powerConsumptionExponent || 1.3)));
 		}
 		return 0;
 	}
@@ -50,7 +51,8 @@ export class RecipesTableController
 	public getRecipeMaxPower(recipe: IAnyRecipeSchema): number
 	{
 		if (recipe.isVariablePower) {
-			return Numbers.round(recipe.maxPower * Math.pow(this.options.overclock / 100, 1 / (this.getMachine(recipe)?.metadata.powerConsumptionExponent || 1.3)));
+			const vRecipe = recipe as IRecipeVariablePowerSchema;
+			return Numbers.round(vRecipe.maxPower * Math.pow(this.options.overclock / 100, 1 / (this.getMachine(recipe)?.metadata.powerConsumptionExponent || 1.3)));
 		}
 		return 0;
 	}

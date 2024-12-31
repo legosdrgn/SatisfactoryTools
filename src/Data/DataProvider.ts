@@ -19,11 +19,11 @@ export class DataProvider
 	{
 		DataProvider.version = version;
 		if (version === '0.8') {
-			DataProvider.data = rawData08;
+			DataProvider.data = rawData08 as IJsonSchema;
 		} else if (version === '1.0') {
-			DataProvider.data = rawData10;
+			DataProvider.data = rawData10 as IJsonSchema;
 		} else if (version === '1.0-ficsmas') {
-			DataProvider.data = rawData10Ficsmas;
+			DataProvider.data = rawData10Ficsmas as IJsonSchema;
 		}
 
 		model.change(DataProvider.data);

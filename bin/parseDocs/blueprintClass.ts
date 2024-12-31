@@ -4,12 +4,13 @@ export default function parseBlueprintClass(blueprint: string): string
 		return '';
 	}
 	let match = blueprint.match(/"(.*?)"/);
-	if (!match) {
-		match = ['', blueprint];
-	}
 	if (match) {
-		const parts = match[1].split('.');
-		return parts[parts.length - 1];
+		blueprint = match[1];
 	}
-	return 'Undefined';
+	match = blueprint.match(/'(.*?)'/);
+	if (match) {
+		blueprint = match[1];
+	}
+	const parts = blueprint.split('.');
+	return parts[parts.length - 1];
 }

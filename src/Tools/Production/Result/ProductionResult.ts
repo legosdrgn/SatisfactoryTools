@@ -387,6 +387,8 @@ export class ProductionResult
 
 	private static addProduct(products: {[key: string]: number}, product: string, amount: number): void
 	{
+		if (amount === 0)
+			return;
 		if (!(product in products)) {
 			products[product] = 0;
 		}

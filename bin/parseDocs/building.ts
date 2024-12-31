@@ -69,7 +69,19 @@ export default function parseBuildings(buildings: {
 		}
 
 		if (typeof building.mPowerConsumption !== 'undefined') {
-			metadata.powerConsumption = parseFloat(building.mPowerConsumption);
+			// Special handling for when a building describes its power consumption as a range.
+			if (building.mPowerConsumption.substring(0, 1) == '(') {
+				const range = Strings.unserializeDocs(building.mPowerConsumption);
+				if (range.Min) {
+					metadata.minPowerConsumption = parseFloat(range.Min);
+				}
+				if (range.Max) {
+					metadata.maxPowerConsumption = parseFloat(range.Max);
+				}
+			}
+			else {
+				metadata.powerConsumption = parseFloat(building.mPowerConsumption);
+			}
 		}
 
 		if (typeof building.mPowerConsumptionExponent !== 'undefined') {

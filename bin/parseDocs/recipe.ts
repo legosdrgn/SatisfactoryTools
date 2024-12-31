@@ -68,8 +68,8 @@ export default function parseRecipes(recipes: {
 			return className.replace('Build_', 'Desc_');
 		});
 
-		const products = Arrays.ensureArray(Strings.unserializeDocs(recipe.mProduct)).map(parseItemAmount);
-		const ingredients = Arrays.ensureArray(Strings.unserializeDocs(recipe.mIngredients)).map(parseItemAmount);
+		const products = Arrays.ensureArray(Strings.unserializeDocs(recipe.mProduct || "()")).map(parseItemAmount);
+		const ingredients = Arrays.ensureArray(Strings.unserializeDocs(recipe.mIngredients || "()")).map(parseItemAmount);
 
 		for (const ingredient of ingredients) {
 			if (ignored.indexOf(ingredient.item) !== -1) {
@@ -81,11 +81,6 @@ export default function parseRecipes(recipes: {
 			if (ignoredProducts.indexOf(product.item) !== -1 || ignored.indexOf(product.item) !== -1) {
 				continue recipeLoop;
 			}
-		}
-
-		// ignore converter recipes
-		if (producedIn.indexOf('Desc_Converter_C') !== -1) {
-			continue;
 		}
 
 		let forBuilding = false;

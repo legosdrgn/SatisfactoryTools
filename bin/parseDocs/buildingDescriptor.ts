@@ -5,7 +5,7 @@ import parseBlueprintClass from '@bin/parseDocs/blueprintClass';
 export default function parseBuildingDescriptors(buildingDescriptors: {
 	ClassName: string,
 	mSubCategories: string,
-	mBuildMenuPriority: string,
+	mMenuPriority: string,
 }[]): IBuildingDescriptor[]
 {
 	const result: IBuildingDescriptor[] = [];
@@ -13,7 +13,7 @@ export default function parseBuildingDescriptors(buildingDescriptors: {
 		result.push({
 			className: buildingDescriptor.ClassName,
 			categories: Arrays.ensureArray(Strings.unserializeDocs(buildingDescriptor.mSubCategories)).map(parseBlueprintClass),
-			priority: parseFloat(buildingDescriptor.mBuildMenuPriority),
+			priority: parseFloat(buildingDescriptor.mMenuPriority),
 		});
 	}
 	return result;

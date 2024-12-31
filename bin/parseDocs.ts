@@ -35,7 +35,11 @@ let extraInfo: any[] = [];
 let imageMapping: { [key: string]: string } = {};
 
 for (const definitions of docs) {
-	switch (definitions.NativeClass) {
+	let nativeClass = definitions.NativeClass;
+	if (nativeClass.substring(0, 20) == "/Script/CoreUObject.") {
+		nativeClass = nativeClass.substring(20);
+	}
+	switch (nativeClass) {
 		case 'Class\'/Script/FactoryGame.FGItemDescriptor\'':
 		case 'Class\'/Script/FactoryGame.FGEquipmentDescriptor\'':
 		case 'Class\'/Script/FactoryGame.FGConsumableDescriptor\'':
@@ -46,6 +50,7 @@ for (const definitions of docs) {
 		case 'Class\'/Script/FactoryGame.FGAmmoTypeProjectile\'':
 		case 'Class\'/Script/FactoryGame.FGAmmoTypeSpreadshot\'':
 		case 'Class\'/Script/FactoryGame.FGAmmoTypeInstantHit\'':
+		case 'Class\'/Script/FactoryGame.FGPowerShardDescriptor\'':
 			for (const item of parseItemDescriptors(definitions.Classes)) {
 				json.items[item.className] = item;
 			}
@@ -257,7 +262,7 @@ for (const info of extraInfo) {
 		json.buildings[info.className].buildMenuPriority = info.priority;
 		json.buildings[info.className].categories = info.categories;
 	} else {
-		console.log(info.className);
+		// console.log(info.className);
 	}
 }
 
