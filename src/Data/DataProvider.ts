@@ -1,6 +1,7 @@
 import rawData08 from '@data/data.json';
 import rawData10 from '@data/data1.0.json';
 import rawData10Ficsmas from '@data/data1.0-ficsmas.json';
+import rawData10Nuclear from '@data/data1.0-nuclear.json';
 import {IJsonSchema} from '@src/Schema/IJsonSchema';
 import model from '@src/Data/Model';
 
@@ -24,6 +25,8 @@ export class DataProvider
 			DataProvider.data = rawData10 as IJsonSchema;
 		} else if (version === '1.0-ficsmas') {
 			DataProvider.data = rawData10Ficsmas as IJsonSchema;
+		} else if (version === '1.0-nuclear') {
+			DataProvider.data = rawData10Nuclear as IJsonSchema;
 		}
 
 		model.change(DataProvider.data);

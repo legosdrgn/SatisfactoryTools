@@ -54,6 +54,8 @@ export class ProductionController
 	{
 		if ($rootScope.version === '1.0') {
 			this.storageKey = 'production1';
+		} else if ($rootScope.version === '1.0-nuclear') {
+			this.storageKey = 'production-nuclear';
 		} else if ($rootScope.version === '1.0-ficsmas') {
 			this.storageKey = 'production-ficsmas';
 		} else {
@@ -70,7 +72,7 @@ export class ProductionController
 			if ('share' in query) {
 				axios({
 					method: 'GET',
-					url: 'https://api.satisfactorytools.com/v2/share/' + encodeURIComponent(query.share),
+					url: Constants.API_URL + '/v2/share/' + encodeURIComponent(query.share),
 				}).then((response) => {
 					$timeout(0).then(() => {
 						const tabData: IProductionData = response.data.data;

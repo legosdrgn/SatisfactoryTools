@@ -102,6 +102,9 @@ export class ProductionTab
 				case '1.0-ficsmas':
 					apiRequest.gameVersion = '1.0.0-ficsmas';
 					break;
+				case '1.0-nuclear':
+					apiRequest.gameVersion = '1.0.0-nuclear';
+					break;
 				default:
 					apiRequest.gameVersion = '1.0.0';
 			}
@@ -244,7 +247,7 @@ export class ProductionTab
 		shareData.metadata.icon = this.icon;
 		axios({
 			method: 'POST',
-			url: 'https://api.satisfactorytools.com/v2/share/?version=' + this.version,
+			url: Constants.API_URL + '/v2/share/?version=' + this.version,
 			data: shareData,
 		}).then((response) => {
 			this.scope.$timeout(0).then(() => {

@@ -353,6 +353,8 @@ export class AppModule
 			let v = '0.8';
 			if (document.location.href.indexOf('/1.0-ficsmas') !== -1) {
 				v = '1.0-ficsmas';
+			} else if (document.location.href.indexOf('/1.0-nuclear') !== -1) {
+				v = '1.0-nuclear';
 			} else if (document.location.href.indexOf('/1.0') !== -1) {
 				v = '1.0';
 			}
@@ -365,7 +367,7 @@ export class AppModule
 
 			$transitions.onStart({}, (transition: ITransitionObject<{version: string, share?: string}>) => {
 				const version = transition.params().version;
-				const valid = ['0.8', '1.0', '1.0-ficsmas'];
+				const valid = ['0.8', '1.0', '1.0-ficsmas', '1.0-nuclear'];
 				if (!valid.includes(version)) {
 					transition.abort();
 					$state.go(transition.to().name + '', {...transition.params(), version: '0.8'}, {location: 'replace', reload: true, inherit: true});

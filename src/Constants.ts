@@ -1,5 +1,7 @@
 export class Constants
 {
+	public static API_URL = 'https://api.satisfactorytools.com';
+
 	public static STACK_SIZE: { [key: string]: number } = {
 		ONE: 1,
 		SMALL: 50,

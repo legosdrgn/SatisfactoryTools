@@ -10,6 +10,8 @@ import {InputNode} from '@src/Tools/Production/Result/Nodes/InputNode';
 import {Graph} from '@src/Tools/Production/Result/Graph';
 import {ProductionResult} from '@src/Tools/Production/Result/ProductionResult';
 import {SinkNode} from '@src/Tools/Production/Result/Nodes/SinkNode';
+import {GeneratorNode} from '@src/Tools/Production/Result/Nodes/GeneratorNode';
+import {GeneratorData} from '@src/Tools/Production/Result/GeneratorData';
 
 export class ProductionResultFactory
 {
@@ -73,12 +75,34 @@ export class ProductionResultFactory
 				[recipeClass, clockSpeed] = machineData.split('@');
 
 				if (clockSpeed) {
-					graph.addNode(new RecipeNode(new RecipeData(
-						data.buildings[machineClass] as IManufacturerSchema,
-						data.recipes[recipeClass],
-						amount,
-						parseInt(clockSpeed, 10),
-					), data));
+					if (data.recipes[recipeClass]) {
+						graph.addNode(new RecipeNode(new RecipeData(
+							data.buildings[machineClass] as IManufacturerSchema,
+							data.recipes[recipeClass],
+							amount,
+							parseInt(clockSpeed, 10),
+						), data));
+					}
+					else if (data.generators[machineClass]) {
+
+						const generator = data.generators[machineClass];
+						if (generator.fuelRecipes && generator.producedIn) {
+							for (const i in generator.fuelRecipes) {
+								if (generator.fuelRecipes[i].fuel === recipeClass) {
+									const fuelRecipe = generator.fuelRecipes[i];
+									graph.addNode(new GeneratorNode(new GeneratorData(
+										data.buildings[generator.producedIn] as IManufacturerSchema,
+										generator,
+										fuelRecipe,
+										data.items[fuelRecipe.fuel],
+										amount,
+										parseInt(clockSpeed, 10)
+									), data));
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
